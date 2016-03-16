@@ -1,3 +1,0 @@
-<launch>
-  <node name="heartbeatclient" pkg="motor_control_heartbeat_client" type="motor_control_heartbeat_client_node" args="heartbeat0" respawn="true"/>
-</launch>
