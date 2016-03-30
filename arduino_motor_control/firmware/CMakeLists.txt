@@ -6,5 +6,6 @@ generate_arduino_firmware(arduino_motor_control
 	SRCS arduino_libs/Motor_Control/Motor_Control.cpp arduino_libs/Motor_Control/Lxr_Motorshield_Wrapper.cpp arduino_motor_control.cpp arduino_libs/LXR_Highpower_Motorshield/LXR_Highpower_Motorshield.cpp ros_lib/time.cpp
 	BOARD uno
 	PORT /dev/ttyACM1
+	BAUD 57600
 	#PORT /dev/ttyACM2
 )
