@@ -9,3 +9,6 @@ and can be easily adapted for other motor-shields.
 
 * Own message-type for speed (8-bit value) and direction which can be adapted for individual needs.
 * Includes a heartbeat-service that calls a user-specific task if the arduino is disconnected from ROS. For example: stop the motor if ROS does not respond.
+
+**Overview:**
+![alt tag](https://raw.githubusercontent.com/AR2A/motor-controller-highpower-motorshield/master/doc/img/schematic_overview.png)
