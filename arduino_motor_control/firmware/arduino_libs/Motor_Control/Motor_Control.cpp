@@ -1,16 +1,31 @@
-#include <Motor_Control/Motor_Control.h>
+/**
+ * \author   Gerald D.
+ * \brief    
+ * \file     Motor_Controler.cpp
+ * \license  BSD-3-License
+ */
+
+/**************************************************************************************
+ * INCLUDES
+ **************************************************************************************/
 #include <stdint.h>
+
 #include <Arduino.h>
+
 #include <ros.h>
 #include <Wire.h>
+
+#include <Motor_Control/Motor_Control.h>
+
+
 
 Motor_Control::~Motor_Control() {
 	if (mPublisherCurrent != 0) {
 		delete mPublisherCurrent;
 	}
 
-	if (mSubscriberSpeedAndDirection != 0) {
-		delete mSubscriberSpeedAndDirection;
+	if (mSubscriberSpeed != 0) {
+		delete mSubscriberSpeed;
 	}
 
 	if (mServiceHeartbeat != 0) {
@@ -18,85 +33,56 @@ Motor_Control::~Motor_Control() {
 	}
 }
 
-void Motor_Control::initialize(HardwareDependent * hd, sCallbackFunc *cf,
-		char * currentMsgName, char * heartbeatMsgName,
-		char * speedAndDirectionMsgName, const long heartbeatTimeout_ms,
-		const uint8_t publishingFrequency_ms) {
+void Motor_Control::initialize(MotorInterface * mi, sCallbackFunc *cf,
+		char * currentMsgName, char * heartbeatMsgName, char * speedMsgName,
+		const long heartbeatTimeout_ms, const uint8_t publishingFrequency_ms) {
 
 	if ((hd == 0) || (cf == 0)) {
 		return;
 	}
 
-	mHD = hd;
+	mMI = mi;
 	mCF = cf;
 	mHeartbeatTimeout = heartbeatTimeout_ms;
 	mPublishingFrequency = publishingFrequency_ms;
-
-	initialize_hw();
 
 	if (mPublisherCurrent != 0) {
 		delete mPublisherCurrent;
 	}
 	mPublisherCurrent = new ros::Publisher(currentMsgName, &mMessageCurrent);
 
-	if (mSubscriberSpeedAndDirection != 0) {
-		delete mSubscriberSpeedAndDirection;
+	if (mSubscriberSpeed != 0) {
+		delete mSubscriberSpeed;
 	}
-	mSubscriberSpeedAndDirection = new ros::Subscriber<
-			arduino_motor_control::set_speed_direction>(
-			speedAndDirectionMsgName, mCF->callback_speed_and_direction);
+	mSubscriberSpeed = new ros::Subscriber<arduino_motor_control::set_speed_direction>(speedMsgName, mCF->callback_speed);
 
 	if (mServiceHeartbeat != 0) {
 		delete mServiceHeartbeat;
 	}
-	mServiceHeartbeat = new ros::ServiceServer<
-			arduino_motor_control::heartbeat::Request,
-			arduino_motor_control::heartbeat::Response>(heartbeatMsgName,
-			mCF->callback_heartbeat);
+	mServiceHeartbeat = new ros::ServiceServer<arduino_motor_control::heartbeat::Request, arduino_motor_control::heartbeat::Response>(heartbeatMsgName, mCF->callback_heartbeat);
 
 	mNodeHandle.initNode();
-	mNodeHandle.subscribe(*mSubscriberSpeedAndDirection);
+	mNodeHandle.subscribe(*mSubscriberSpeed);
 	mNodeHandle.advertise(*mPublisherCurrent);
 	mNodeHandle.advertiseService(*mServiceHeartbeat);
 
 	heartbeat_timer_reset();
 }
 
-void Motor_Control::set_direction(
-		const arduino_motor_control::set_speed_direction & sad) {
+void Motor_Control::set_speed(const arduino_motor_control::set_speed_direction & spd) {
 	if (is_heartbeat_in_time()) {
-		if ((mHD != 0) && (mHD != 0)) {
-			mHD->setDirection(sad);
-		}
-	}
-}
-
-void Motor_Control::set_speed(
-		const arduino_motor_control::set_speed_direction & sad) {
-	if (is_heartbeat_in_time()) {
-		if ((mHD != 0) && (mHD != 0)) {
-			mHD->setSpeed(sad);
+		if (mMI != 0) {
+			mMI->setSpeed(spd);
 		}
 	}
 }
 
 void Motor_Control::get_current(arduino_motor_control::get_current & cur) {
-	if ((mHD != 0) && (mHD != 0)) {
-		mHD->getCurrent(mMessageCurrent);
+	if (mMI != 0) {
+		mMI->getCurrent(mMessageCurrent);
 	}
 }
 
-void Motor_Control::initialize_hw() {
-	if ((mHD != 0) && (mHD != 0)) {
-		mHD->initHw();
-	}
-}
-
-void Motor_Control::on_error() {
-	if ((mHD != 0) && (mHD != 0)) {
-		mHD->onError();
-	}
-}
 
 bool Motor_Control::is_heartbeat_in_time() {
 	return (millis() < mHeartbeatTimer);
@@ -131,4 +117,8 @@ uint8_t Motor_Control::count_ones(const uint8_t value) {
 
 void Motor_Control::heartbeat_timer_reset() {
 	mHeartbeatTimer = millis() + mHeartbeatTimeout;
+}
+
+void Motor_Control::on_error() {
+//ToDo
 }
