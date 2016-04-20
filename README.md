@@ -7,7 +7,7 @@ brings support for the brushed motor controller based on the LXRobotics Highpowe
 and can be easily adapted for other motor-shields.
 
 **1.2. Features**
-* Own message-type for speed (8-bit value) and direction which can be adapted for individual needs.
+* Own message-type for speed which can be adapted for individual needs.
 * Includes a heartbeat-service that calls a user-specific task if the arduino is disconnected from ROS. For example: stop the motor if ROS does not respond.
 
 **1.3. Overview**
@@ -70,10 +70,10 @@ You can launch the motor controller node with:
 This Node runs directly on the Arduino Uno, monitors the current power consumption, controls the motor and includes a heartbeat-service that calls a user-specific task if the arduino is disconnected from ROS.
 
 4.1.1. Subscribed Topics
-* speed_and_direction (arduino_motor_control/set_speed_direction):
+* speed (arduino_motor_control/speed):
 
 4.1.2. Published Topics
-* current (arduino_motor_control/get_current):
+* current (arduino_motor_control/current):
 
 4.1.3. Services
 * heartbeat (arduino_motor_control/heartbeat):
