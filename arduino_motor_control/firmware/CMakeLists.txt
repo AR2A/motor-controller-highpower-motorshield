@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 2.8.3)
 
-#include_directories(${ROS_LIB_DIR} arduino_libs /usr/lib/avr/include/)
+include_directories(${ROS_LIB_DIR} arduino_libs /usr/lib/avr/include/)
 
 
 generate_arduino_firmware(arduino_motor_control
