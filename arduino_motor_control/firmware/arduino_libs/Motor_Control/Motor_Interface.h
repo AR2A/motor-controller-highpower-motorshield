@@ -18,8 +18,8 @@
 #include <ros.h>
 #include <Wire.h>
 
-#include <arduino_motor_control/get_current.h>
-#include <arduino_motor_control/set_speed_direction.h>
+#include <arduino_motor_control/current.h>
+#include <arduino_motor_control/speed.h>
 
 /**************************************************************************************
  * INTERFACE

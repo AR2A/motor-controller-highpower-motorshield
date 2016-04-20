@@ -19,10 +19,10 @@
 /**************************************************************************************
  * ABSTRACT INTERFACE
  **************************************************************************************/
-class LxrMotorshield: MotorInterface {
+class LxrMotorshield: public MotorInterface {
 public:
 	// DTor
-	~MotorInterface();
+	~LxrMotorshield();
 
 	//setter
 	void SetSpeed(const arduino_motor_control::speed & s);

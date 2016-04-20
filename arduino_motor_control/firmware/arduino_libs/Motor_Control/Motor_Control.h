@@ -18,8 +18,8 @@
 //ROS-Messages and Services
 #include <ros.h>
 #include <Wire.h>
-#include <arduino_motor_control/get_current.h>
-#include <arduino_motor_control/set_speed_direction.h>
+#include <arduino_motor_control/current.h>
+#include <arduino_motor_control/speed.h>
 #include <arduino_motor_control/heartbeat.h>
 
 //hardware dependent functions
@@ -28,12 +28,14 @@
 //callback functions
 typedef void (*fpHB)(const arduino_motor_control::heartbeat::Request &req,
 		arduino_motor_control::heartbeat::Response &res);
-typedef void (*fpSD)(const arduino_motor_control::set_speed_direction & sad);
+typedef void (*fpSD)(const arduino_motor_control::speed & s);
 
 typedef struct {
 	fpHB callback_heartbeat;
 	fpSD callback_speed;
-} sCallbackFunc;
+}sCallbackFunc;
+
+
 
 class Motor_Control {
 public:
@@ -47,8 +49,8 @@ public:
 			const uint8_t publishingFrequency_ms = 20);
 
 	//motor_interface functions
-	void set_speed(const arduino_motor_control::set_speed_direction & spd);
-	void get_current(arduino_motor_control::get_current & cur);
+	void set_speed(const arduino_motor_control::speed & s);
+	void get_current(arduino_motor_control::current & cur);
 
 	//helper functions
 	void on_error();
@@ -70,7 +72,7 @@ private:
 	sCallbackFunc *mCF;
 	ros::NodeHandle mNodeHandle;
 	ros::Publisher *mPublisherCurrent;
-	ros::Subscriber<arduino_motor_control::set_speed_direction> *mSubscriberSpeed;
+	ros::Subscriber<arduino_motor_control::speed> *mSubscriberSpeed;
 	ros::ServiceServer<arduino_motor_control::heartbeat::Request,
 			arduino_motor_control::heartbeat::Response> *mServiceHeartbeat;
 };

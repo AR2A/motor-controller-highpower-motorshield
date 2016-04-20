@@ -28,8 +28,8 @@ LxrMotorshield ms; //HARDWARE-SPECIFIC
 /**************************************************************************************
  * Callback Functions
  **************************************************************************************/
-void callbackSpeed(const arduino_motor_control::set_speed_direction & sad){
-	mc.set_speed(sad);
+void callbackSpeed(const arduino_motor_control::speed & s){
+	mc.set_speed(s);
 }
 
 void callbackHeartbeat(const arduino_motor_control::heartbeat::Request  &req, arduino_motor_control::heartbeat::Response &res){

@@ -33,7 +33,7 @@ uint8_t LxrMotorshield::ConvertSpeed(const double speed) {
 void LxrMotorshield::SetSpeed(const arduino_motor_control::speed & s) {
 
 	//set direction
-	if (s.speed >= 0) {
+	if (s.speed_double >= 0) {
 		//forward
 		LXR_Highpower_Motorshield::set_direction(FWD);
 	} else {
@@ -41,9 +41,14 @@ void LxrMotorshield::SetSpeed(const arduino_motor_control::speed & s) {
 		LXR_Highpower_Motorshield::set_direction(BWD);
 	}
 
-	LXR_Highpower_Motorshield::set_speed(ConvertSpeed(s.speed));
+	LXR_Highpower_Motorshield::set_speed(ConvertSpeed(s.speed_double));
 }
 
+LxrMotorshield::~LxrMotorshield() {
+
+}
+
+/*
 arduino_motor_control::current LxrMotorshield::GetCurrent() {
 	arduino_motor_control::current cur;
 
@@ -55,4 +60,5 @@ arduino_motor_control::current LxrMotorshield::GetCurrent() {
 
 	return cur;
 }
+*/
 

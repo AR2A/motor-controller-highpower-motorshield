@@ -33,11 +33,11 @@ Motor_Control::~Motor_Control() {
 	}
 }
 
-void Motor_Control::initialize(MotorInterface * mi, sCallbackFunc *cf,
+void Motor_Control::initialize(MotorInterface * mi, sCallbackFunc * cf,
 		char * currentMsgName, char * heartbeatMsgName, char * speedMsgName,
 		const long heartbeatTimeout_ms, const uint8_t publishingFrequency_ms) {
 
-	if ((hd == 0) || (cf == 0)) {
+	if ((mi == 0) || (cf == 0)) {
 		return;
 	}
 
@@ -54,7 +54,7 @@ void Motor_Control::initialize(MotorInterface * mi, sCallbackFunc *cf,
 	if (mSubscriberSpeed != 0) {
 		delete mSubscriberSpeed;
 	}
-	mSubscriberSpeed = new ros::Subscriber<arduino_motor_control::set_speed_direction>(speedMsgName, mCF->callback_speed);
+	mSubscriberSpeed = new ros::Subscriber<arduino_motor_control::speed>(speedMsgName, mCF->callback_speed);
 
 	if (mServiceHeartbeat != 0) {
 		delete mServiceHeartbeat;
@@ -69,17 +69,17 @@ void Motor_Control::initialize(MotorInterface * mi, sCallbackFunc *cf,
 	heartbeat_timer_reset();
 }
 
-void Motor_Control::set_speed(const arduino_motor_control::set_speed_direction & spd) {
+void Motor_Control::set_speed(const arduino_motor_control::speed & spd) {
 	if (is_heartbeat_in_time()) {
 		if (mMI != 0) {
-			mMI->setSpeed(spd);
+			mMI->SetSpeed(spd);
 		}
 	}
 }
 
-void Motor_Control::get_current(arduino_motor_control::get_current & cur) {
+void Motor_Control::get_current(arduino_motor_control::current & cur) {
 	if (mMI != 0) {
-		mMI->getCurrent(mMessageCurrent);
+		// mMI->GetCurrent(mMessageCurrent); ToDo
 	}
 }
 
