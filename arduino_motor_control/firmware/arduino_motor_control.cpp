@@ -21,12 +21,21 @@
  * GLOBAL VARIABLES
  **************************************************************************************/
 Motor_Control mc;
-LxrMotorshield ms; //HARDWARE-SPECIFIC
+
+//HARDWARE-SPECIFIC PART-> (LxrMotorshield has been derived from Motor_Interface.h)
+LxrMotorshield ms; 
+/* If you don't use a LXR Highpower Motorshield(LxrMotorshield), you have to implement 
+   your own class (derived from Motor_Interface.h) to control your motor. */
 
 
 /**************************************************************************************
- * Callback Functions
+ * Callback Functions 
  **************************************************************************************/
+/* The following callback-functions are needed because ros::Subscriber(...) and 
+   ros::ServiceServer(...) can't handle functions with this-pointer. 
+   In my opinion this is the best possible workaround (better than static functions) 
+   because you can have more motor controller instances without interfering each other.*/
+
 void callbackSpeed(const arduino_motor_control::speed & s) {
     mc.set_speed(s);
 }
@@ -48,6 +57,16 @@ sCallbackFunc cf = {
 void setup() {
 
     mc.initialize(&ms, &cf);
+    /* You can call initialize with the following parameters to rename 
+       msgs/srv or to run two instances on one arduino (not supported 
+       from LXR Highpower Motorshield): 
+
+         mc0.initialize(&ms0, &cf0, "currentMotor0", "heartbeatSrvMotor0", 
+                        "speedMotor0", 500, 100);
+
+         mc1.initialize(&ms1, &cf1, "currentMotor1", "heartbeatSrvMotor1", 
+                        "speedMotor1", 500, 100); 
+    */                          
 
 }
 
