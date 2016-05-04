@@ -120,5 +120,9 @@ void Motor_Control::heartbeat_timer_reset() {
 }
 
 void Motor_Control::on_error() {
-//ToDo
+    if (mMI != 0) {
+	arduino_motor_control::speed s;
+	s.speed_double = 0.0;
+        mMI->SetSpeed(s);
+    }
 }
