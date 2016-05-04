@@ -41,6 +41,16 @@ Move to your catkin-workspace:
 Compile the packages:
 
     $ catkin_make
+    
+If you can't generate the custom messages, please run the following commands:
+
+    $ catkin_make arduino_motor_control_generate_messages
+    $ source devel/setup.bash
+    $ cd src/motor-controller-highpower-motorshield/arduino_motor_control/firmware/
+    $ rm -r ros_lib/
+    $ rosrun rosserial_arduino make_libraries.py .
+    $ cd ~/catkin_ws
+    $ catkin_make 
 
 **2.3 Upload to the Arduino Uno**
 
