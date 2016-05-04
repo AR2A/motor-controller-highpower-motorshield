@@ -1,6 +1,6 @@
 /**
  * \author   Gerald D.
- * \brief    motor interface  
+ * \brief    motor interface
  * \file     Motor_Interface.h
  * \license  BSD-3-License
  */
@@ -25,12 +25,12 @@
  * INTERFACE
  **************************************************************************************/
 class MotorInterface {
-public:
-	// empty virtual destructor for proper cleanup
-	virtual ~MotorInterface() {
-	}
+  public:
+    // empty virtual destructor for proper cleanup
+    virtual ~MotorInterface() {
+    }
 
-	virtual void SetSpeed(const arduino_motor_control::speed & s) = 0;
+    virtual void SetSpeed(const arduino_motor_control::speed & s) = 0;
 };
 
 #endif //MOTOR_INTERFACE_H_

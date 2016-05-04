@@ -1,6 +1,6 @@
 /**
  * \author   Gerald D.
- * \brief    LXR Motorshield Class   
+ * \brief    LXR Motorshield Class
  * \file     Lxr_Motorshield.cpp
  * \license  BSD-3-License
  */
@@ -16,32 +16,32 @@
  * HELPER-FUNCTIONS
  **************************************************************************************/
 uint8_t LxrMotorshield::ConvertSpeed(const double speed) {
-	uint8_t speedAs8BitValue = 0;
+    uint8_t speedAs8BitValue = 0;
 
-	if (speed < 0) {
-		speedAs8BitValue = (0xFF * (speed * -1)) && 0xFF;
-	} else {
-		speedAs8BitValue = (0xFF * speed) && 0xFF;
-	}
+    if (speed < 0) {
+        speedAs8BitValue = (0xFF * (speed * -1)) && 0xFF;
+    } else {
+        speedAs8BitValue = (0xFF * speed) && 0xFF;
+    }
 
-	return speedAs8BitValue;
+    return speedAs8BitValue;
 }
 
 /**************************************************************************************
- * IMPLEMENTATION 
+ * IMPLEMENTATION
  **************************************************************************************/
 void LxrMotorshield::SetSpeed(const arduino_motor_control::speed & s) {
 
-	//set direction
-	if (s.speed_double >= 0) {
-		//forward
-		LXR_Highpower_Motorshield::set_direction(FWD);
-	} else {
-		//backward
-		LXR_Highpower_Motorshield::set_direction(BWD);
-	}
+    //set direction
+    if (s.speed_double >= 0) {
+        //forward
+        LXR_Highpower_Motorshield::set_direction(FWD);
+    } else {
+        //backward
+        LXR_Highpower_Motorshield::set_direction(BWD);
+    }
 
-	LXR_Highpower_Motorshield::set_speed(ConvertSpeed(s.speed_double));
+    LXR_Highpower_Motorshield::set_speed(ConvertSpeed(s.speed_double));
 }
 
 LxrMotorshield::~LxrMotorshield() {

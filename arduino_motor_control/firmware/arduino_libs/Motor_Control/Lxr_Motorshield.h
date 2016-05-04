@@ -1,6 +1,6 @@
 /**
  * \author   Gerald D.
- * \brief    LXR Motorshield Class  
+ * \brief    LXR Motorshield Class
  * \file     Lxr_Motorshield.h
  * \license  BSD-3-License
  */
@@ -20,16 +20,16 @@
  * ABSTRACT INTERFACE
  **************************************************************************************/
 class LxrMotorshield: public MotorInterface {
-public:
-	// DTor
-	~LxrMotorshield();
+  public:
+    // DTor
+    ~LxrMotorshield();
 
-	//setter
-	void SetSpeed(const arduino_motor_control::speed & s);
-	
-private:
-	//helper-functions
-	uint8_t ConvertSpeed(const double speed);
+    //setter
+    void SetSpeed(const arduino_motor_control::speed & s);
+
+  private:
+    //helper-functions
+    uint8_t ConvertSpeed(const double speed);
 };
 
 #endif //LXR_MOTORSHIELD_H_
