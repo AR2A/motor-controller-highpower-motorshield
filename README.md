@@ -94,6 +94,7 @@ This Node runs directly on the Arduino Uno, monitors the current power consumpti
 
 
 **4.2. Node: motor_control_heartbeat_client**
+
 This is the Heartbeat-Client an runs on the main ROS-System.
 
 4.2.1 Needed Services
