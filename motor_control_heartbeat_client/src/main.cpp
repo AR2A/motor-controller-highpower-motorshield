@@ -1,8 +1,23 @@
+/**
+ * \author   Gerald D.
+ * \brief    demo/example heartbeat-client for the motor controller highpower motorshield
+ * \file     arduino_motor_control.cpp
+ * \license  BSD-3-License
+ */
+
+
+/**************************************************************************************
+ * INCLUDES
+ **************************************************************************************/
 #include <string>
 #include <stdint.h>
 #include "ros/ros.h"
 #include <ros/console.h>
 #include <arduino_motor_control/heartbeat.h>
+
+/**************************************************************************************
+ * demo/example heartbeat-client implementation
+ **************************************************************************************/
 
 using namespace std;
 
@@ -47,6 +62,8 @@ int main(int argc, char *argv[]) {
                 ROS_INFO(
                     "Wrong return value from service arduino_motor_control::heartbeat");
                 //ToDo: user-specific-part
+		/* Add here some action for non responding arduino/motor-controller-
+                   highpower-motorshield */
             }
 
             srv.request.Request = srv.response.Response + 1;
