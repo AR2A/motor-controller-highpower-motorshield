@@ -36,6 +36,7 @@ install:
   # Create the devel/setup.bash (run catkin_make with an empty workspace) and
   # source it to set the path variables.
   - cd ~/catkin_ws
+  - source devel/setup.bash
   - catkin_make arduino_motor_control_generate_messages
   - source devel/setup.bash
   - cd src/motor-controller-highpower-motorshield/arduino_motor_control/firmware/
