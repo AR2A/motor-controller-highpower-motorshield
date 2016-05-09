@@ -102,3 +102,7 @@ This is the Heartbeat-Client an runs on the main ROS-System.
 **4.3. Node: motor_startup**
 
 Contains the launch file.
+
+##5. Bugs & Feature Requests
+
+Please report bugs and request features using the [Issue Tracker](https://github.com/AR2A/motor-controller-highpower-motorshield/issues).
