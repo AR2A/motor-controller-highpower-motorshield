@@ -1,0 +1,3 @@
+<launch>
+  <node name="heartbeatclient" pkg="motor_control_heartbeat_client" type="motor_control_heartbeat_client_node" args="default_heartbeat_msg_name" respawn="true"/>
+</launch>

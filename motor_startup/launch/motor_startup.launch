@@ -1,18 +1,10 @@
 <launch>        		
-  <!--group ns="arduino_motor_control0"-->
+  <!--group ns="arduino_motor_control"-->
 		<include file="$(env HOME)/catkin_ws/src/arduino_motor_control/launch/arduino_motor_control.launch"/>
 	<!--/group-->
-
-  <!--group ns="arduino_motor_control1"-->
-                <include file="$(env HOME)/catkin_ws/src/arduino_motor_control1/launch/arduino_motor_control1.launch"/>
-   	 <!--group ns="geotiff_writer"-->
        
-  <!--group ns="heartbeat_client0"-->
-                <include file="$(env HOME)/catkin_ws/src/motor_control_heartbeat_client/launch/motor_control_heartbeat_client0.launch"/>
-         <!--group ns="geotiff_writer"-->
-
-  <!--group ns="heartbeat_client1"-->
-                <include file="$(env HOME)/catkin_ws/src/motor_control_heartbeat_client/launch/motor_control_heartbeat_client1.launch"/>
+  <!--group ns="heartbeat_client"-->
+                <include file="$(env HOME)/catkin_ws/src/motor_control_heartbeat_client/launch/motor_control_heartbeat_client.launch"/>
          <!--group ns="geotiff_writer"-->
 
 </launch>
