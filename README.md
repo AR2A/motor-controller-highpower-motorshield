@@ -34,6 +34,10 @@ Clone the repository:
 
 **2.2. Build the Packages**
 
+Travis Build Status:
+
+[![Build Status](https://travis-ci.org/AR2A/motor-controller-highpower-motorshield.svg?branch=master)](https://travis-ci.org/AR2A/motor-controller-highpower-motorshield)
+
 Move to your catkin-workspace:
 
     $ cd ~/catkin_ws/
